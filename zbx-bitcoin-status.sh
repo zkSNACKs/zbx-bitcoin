@@ -5,6 +5,20 @@ bitcoin_cli_options=""
 zabbix_sender="zabbix_sender -c /etc/zabbix/zabbix_agentd.conf"
 measurement_rate="60s"
 
+estimatesmartfee_targets=(
+    1       # 10 minutes
+    2       # 20 minutes
+    3       # 30 minutes
+    4       # 40 minutes
+    6       # 1 hour
+    12      # 2 hours
+    24      # 4 hours
+    48      # 8 hours
+    144     # 1 day
+    504     # 3 days
+    1008    # 1 week
+)
+
 lockdir="/tmp/$(basename "$0").lock"
 if mkdir "$lockdir" 2> /dev/null; then
     trap 'rm -rf "$lockdir"' 0
@@ -58,6 +72,7 @@ while :; do
     rpc_active_commands=$(( rpc_active_commands - 1 ))
 
     set -x
+
     $zabbix_sender -k bitcoin.blockchain.tip.blocks -o $blockchain_tip_blocks
     $zabbix_sender -k bitcoin.blockchain.tip.headers -o $blockchain_tip_headers
     $zabbix_sender -k bitcoin.blockchain.verificationprogress -o $blockchain_verificationprogress
@@ -72,6 +87,15 @@ while :; do
     $zabbix_sender -k bitcoin.mempool.size_vbytes -o $mempool_size_vbytes
     $zabbix_sender -k bitcoin.mempool.usage_bytes -o $mempool_usage_bytes
     $zabbix_sender -k bitcoin.rpc.active_commands.num -o $rpc_active_commands
+
+    for i in $(seq 0 $(( ${#estimatesmartfee_targets[@]} - 1 )) ); do
+        # Can't use jq here as it converts some numbers to scientific notation
+        # which bc does not like. So use grep instead.
+        $zabbix_sender \
+            -k bitcoin.estimatesmartfee[${estimatesmartfee_targets[$i]}] \
+            -o $(bc <<< "$($bitcoin_cli estimatesmartfee ${estimatesmartfee_targets[$i]} | grep ".feerate" | grep -Eo "[0-9]+\.[0-9]+") * 100000")
+    done
+
     set +x
 
     echo "[$(date -u +"%Y-%m-%dT%H:%M:%SZ")] Sleeping for $measurement_rate"
