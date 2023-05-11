@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2023-05-10T16:38:29Z'
+  date: '2023-05-11T04:26:09Z'
   groups:
     -
       uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
@@ -151,6 +151,22 @@ zabbix_export:
           name: 'Bitcoin: Fee estimation for 48 block (8 hour) confirmation target'
           type: TRAP
           key: 'bitcoin.estimatesmartfee[48]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
+        -
+          uuid: 4ef2d433db8b4298bdc825e658e4a274
+          name: 'Bitcoin: Fee estimation for 72 block (12 hour) confirmation target'
+          type: TRAP
+          key: 'bitcoin.estimatesmartfee[72]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
+        -
+          uuid: 1a6aedb8b7134927816f0fc3bdbfe6b6
+          name: 'Bitcoin: Fee estimation for 108 block (18 hour) confirmation target'
+          type: TRAP
+          key: 'bitcoin.estimatesmartfee[108]'
           delay: '0'
           value_type: FLOAT
           units: sat/vB

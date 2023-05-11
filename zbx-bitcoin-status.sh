@@ -14,6 +14,8 @@ estimatesmartfee_targets=(
     12      # 2 hours
     24      # 4 hours
     48      # 8 hours
+    72      # 12 hours
+    108     # 18 hours
     144     # 1 day
     504     # 3 days
     1008    # 1 week
