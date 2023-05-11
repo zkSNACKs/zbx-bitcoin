@@ -68,6 +68,8 @@ while :; do
     mempool_tx_count="$(jq ".size" <<< "$mempool_info")"
     mempool_size_vbytes="$(jq ".bytes" <<< "$mempool_info")"
     mempool_usage_bytes="$(jq ".usage" <<< "$mempool_info")"
+    mempool_maxmempool_bytes="$(jq ".maxmempool" <<< "$mempool_info")"
+    mempool_mempoolminfee="$(bc <<< "$(echo "$mempool_info" | grep ".mempoolminfee" | grep -Eo "[0-9]+\.[0-9]+") * 100000")"
 
     rpc_active_commands="$($bitcoin_cli getrpcinfo | jq ".active_commands | length")"
     # -1, to not count us
@@ -88,6 +90,8 @@ while :; do
     $zabbix_sender -k bitcoin.mempool.tx_count -o "$mempool_tx_count"
     $zabbix_sender -k bitcoin.mempool.size_vbytes -o "$mempool_size_vbytes"
     $zabbix_sender -k bitcoin.mempool.usage_bytes -o "$mempool_usage_bytes"
+    $zabbix_sender -k bitcoin.mempool.maxmempool_bytes -o "$mempool_maxmempool_bytes"
+    $zabbix_sender -k bitcoin.mempool.mempoolminfee -o "$mempool_mempoolminfee"
     $zabbix_sender -k bitcoin.rpc.active_commands.num -o "$rpc_active_commands"
 
     for i in $(seq 0 $(( ${#estimatesmartfee_targets[@]} - 1 )) ); do
