@@ -75,27 +75,27 @@ while :; do
 
     set -x
 
-    $zabbix_sender -k bitcoin.blockchain.tip.blocks -o $blockchain_tip_blocks
-    $zabbix_sender -k bitcoin.blockchain.tip.headers -o $blockchain_tip_headers
-    $zabbix_sender -k bitcoin.blockchain.verificationprogress -o $blockchain_verificationprogress
-    $zabbix_sender -k bitcoin.blockchain.size_on_disk -o $blockchain_size_on_disk
-    $zabbix_sender -k bitcoin.version -o $bitcoind_version
+    $zabbix_sender -k bitcoin.blockchain.tip.blocks -o "$blockchain_tip_blocks"
+    $zabbix_sender -k bitcoin.blockchain.tip.headers -o "$blockchain_tip_headers"
+    $zabbix_sender -k bitcoin.blockchain.verificationprogress -o "$blockchain_verificationprogress"
+    $zabbix_sender -k bitcoin.blockchain.size_on_disk -o "$blockchain_size_on_disk"
+    $zabbix_sender -k bitcoin.version -o "$bitcoind_version"
     $zabbix_sender -k bitcoin.subversion -o "$bitcoind_subversion"
-    $zabbix_sender -k bitcoin.protocolversion -o $bitcoind_protocolversion
-    $zabbix_sender -k bitcoin.connections.num -o $bitcoind_connections
-    $zabbix_sender -k bitcoin.connections_in.num -o $bitcoind_connections_in
-    $zabbix_sender -k bitcoin.connections_out.num -o $bitcoind_connections_out
-    $zabbix_sender -k bitcoin.mempool.tx_count -o $mempool_tx_count
-    $zabbix_sender -k bitcoin.mempool.size_vbytes -o $mempool_size_vbytes
-    $zabbix_sender -k bitcoin.mempool.usage_bytes -o $mempool_usage_bytes
-    $zabbix_sender -k bitcoin.rpc.active_commands.num -o $rpc_active_commands
+    $zabbix_sender -k bitcoin.protocolversion -o "$bitcoind_protocolversion"
+    $zabbix_sender -k bitcoin.connections.num -o "$bitcoind_connections"
+    $zabbix_sender -k bitcoin.connections_in.num -o "$bitcoind_connections_in"
+    $zabbix_sender -k bitcoin.connections_out.num -o "$bitcoind_connections_out"
+    $zabbix_sender -k bitcoin.mempool.tx_count -o "$mempool_tx_count"
+    $zabbix_sender -k bitcoin.mempool.size_vbytes -o "$mempool_size_vbytes"
+    $zabbix_sender -k bitcoin.mempool.usage_bytes -o "$mempool_usage_bytes"
+    $zabbix_sender -k bitcoin.rpc.active_commands.num -o "$rpc_active_commands"
 
     for i in $(seq 0 $(( ${#estimatesmartfee_targets[@]} - 1 )) ); do
         # Can't use jq here as it converts some numbers to scientific notation
         # which bc does not like. So use grep instead.
         $zabbix_sender \
-            -k bitcoin.estimatesmartfee[${estimatesmartfee_targets[$i]}] \
-            -o $(bc <<< "$($bitcoin_cli estimatesmartfee ${estimatesmartfee_targets[$i]} | grep ".feerate" | grep -Eo "[0-9]+\.[0-9]+") * 100000")
+            -k bitcoin.estimatesmartfee["${estimatesmartfee_targets[$i]}"] \
+            -o "$(bc <<< "$($bitcoin_cli estimatesmartfee "${estimatesmartfee_targets[$i]}" | grep ".feerate" | grep -Eo "[0-9]+\.[0-9]+") * 100000")"
     done
 
     set +x
