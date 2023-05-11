@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2023-03-30T13:06:27Z'
+  date: '2023-05-11T04:26:09Z'
   groups:
     -
       uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
@@ -90,6 +90,110 @@ zabbix_export:
             -
               tag: component
               value: connections
+        -
+          uuid: f0a55766d7c6499a97d1c76c7f76d3b9
+          name: 'Bitcoin: Fee estimation for 1 block (10 minute) confirmation target'
+          type: TRAP
+          key: 'bitcoin.estimatesmartfee[1]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
+        -
+          uuid: 76449890c527489babaa3c8b15781444
+          name: 'Bitcoin: Fee estimation for 2 block (20 minute) confirmation target'
+          type: TRAP
+          key: 'bitcoin.estimatesmartfee[2]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
+        -
+          uuid: c5da7d5ef8924d528ed6e98ddb0d2412
+          name: 'Bitcoin: Fee estimation for 3 block (30 minute) confirmation target'
+          type: TRAP
+          key: 'bitcoin.estimatesmartfee[3]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
+        -
+          uuid: 126a11a51b5f40a69a33e601d11f15d7
+          name: 'Bitcoin: Fee estimation for 4 block (40 minute) confirmation target'
+          type: TRAP
+          key: 'bitcoin.estimatesmartfee[4]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
+        -
+          uuid: 092f658ef3c34a728efd5f0e3f7a6835
+          name: 'Bitcoin: Fee estimation for 6 block (1 hour) confirmation target'
+          type: TRAP
+          key: 'bitcoin.estimatesmartfee[6]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
+        -
+          uuid: 9c1e5c8a07be4a0dbd5e8990718b3601
+          name: 'Bitcoin: Fee estimation for 12 block (2 hour) confirmation target'
+          type: TRAP
+          key: 'bitcoin.estimatesmartfee[12]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
+        -
+          uuid: bb08623c76f24957bdccc7b5fec29653
+          name: 'Bitcoin: Fee estimation for 24 block (4 hour) confirmation target'
+          type: TRAP
+          key: 'bitcoin.estimatesmartfee[24]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
+        -
+          uuid: 077288cca2f243099607d763e146718b
+          name: 'Bitcoin: Fee estimation for 48 block (8 hour) confirmation target'
+          type: TRAP
+          key: 'bitcoin.estimatesmartfee[48]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
+        -
+          uuid: 4ef2d433db8b4298bdc825e658e4a274
+          name: 'Bitcoin: Fee estimation for 72 block (12 hour) confirmation target'
+          type: TRAP
+          key: 'bitcoin.estimatesmartfee[72]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
+        -
+          uuid: 1a6aedb8b7134927816f0fc3bdbfe6b6
+          name: 'Bitcoin: Fee estimation for 108 block (18 hour) confirmation target'
+          type: TRAP
+          key: 'bitcoin.estimatesmartfee[108]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
+        -
+          uuid: c383c1d5fbc547a39c38805ae0eb074d
+          name: 'Bitcoin: Fee estimation for 144 block (1 day) confirmation target'
+          type: TRAP
+          key: 'bitcoin.estimatesmartfee[144]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
+        -
+          uuid: 34f7b3508ee446efbe5fab3eaee7686c
+          name: 'Bitcoin: Fee estimation for 504 block (3 day) confirmation target'
+          type: TRAP
+          key: 'bitcoin.estimatesmartfee[504]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
+        -
+          uuid: 34e99bbcf7e74193b8820adfc286e93e
+          name: 'Bitcoin: Fee estimation for 1008 block (1 week) confirmation target'
+          type: TRAP
+          key: 'bitcoin.estimatesmartfee[1008]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
         -
           uuid: 7a7404a5e9c849d59c873ba7882d63ae
           name: 'Bitcoin: Mempool size'

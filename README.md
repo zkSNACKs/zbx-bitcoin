@@ -4,6 +4,7 @@ Template and script for Zabbix to monitor Bitcoin Core or Knots node.
 
 ## Dependencies
 
+* bc
 * bitcoin-cli
 * jq
 * zabbix_sender
@@ -18,6 +19,7 @@ Template and script for Zabbix to monitor Bitcoin Core or Knots node.
 * Current number of headers validated
 * Estimated size of the block and undo files on disk
 * Estimate of blockchain verification progress
+* Fee estimations for various block targets
 * Height of the most-work fully-validated chain
 * Mempool size
 * Node connection count
