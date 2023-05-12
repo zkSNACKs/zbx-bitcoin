@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2023-05-11T04:26:09Z'
+  date: '2023-05-11T14:11:05Z'
   groups:
     -
       uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
@@ -191,6 +191,25 @@ zabbix_export:
           name: 'Bitcoin: Fee estimation for 1008 block (1 week) confirmation target'
           type: TRAP
           key: 'bitcoin.estimatesmartfee[1008]'
+          delay: '0'
+          value_type: FLOAT
+          units: sat/vB
+        -
+          uuid: 66f5b2fcd49849e3a1cc0785d5429c03
+          name: 'Bitcoin: Maximum memory usage for the mempool'
+          type: TRAP
+          key: bitcoin.mempool.maxmempool_bytes
+          delay: '0'
+          units: B
+          tags:
+            -
+              tag: component
+              value: memory
+        -
+          uuid: 5562948e24dd4a399445c8144ead4786
+          name: 'Bitcoin: Minimum relay fee for transactions'
+          type: TRAP
+          key: bitcoin.mempool.mempoolminfee
           delay: '0'
           value_type: FLOAT
           units: sat/vB
@@ -396,6 +415,14 @@ zabbix_export:
           item:
             host: 'bitcoind with zabbix-sender'
             key: bitcoin.mempool.tx_count
+        -
+          sortorder: '3'
+          drawtype: BOLD_LINE
+          color: F63100
+          calc_fnc: ALL
+          item:
+            host: 'bitcoind with zabbix-sender'
+            key: bitcoin.mempool.maxmempool_bytes
     -
       uuid: 596753f6a5d048f490c74e59e23e3a30
       name: 'Bitcoin: Node connections'
