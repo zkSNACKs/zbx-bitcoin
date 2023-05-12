@@ -16,6 +16,7 @@ Template and script for Zabbix to monitor Bitcoin Core or Knots node.
 
 ## Items
 
+* Cumulative sizes of mempool transactions per various fee rate groups (Bitcoin Knots only)
 * Current number of headers validated
 * Estimated size of the block and undo files on disk
 * Estimate of blockchain verification progress

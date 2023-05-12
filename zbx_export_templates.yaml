@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2023-05-11T14:11:05Z'
+  date: '2023-05-12T09:32:49Z'
   groups:
     -
       uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
@@ -194,6 +194,216 @@ zabbix_export:
           delay: '0'
           value_type: FLOAT
           units: sat/vB
+        -
+          uuid: f805d782b2b14c8e83c5242940b070c7
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 0-2 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[0]'
+          delay: '0'
+          units: vB
+        -
+          uuid: 98467974eb6240629eea0a23b08bc0ec
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 2-3 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[2]'
+          delay: '0'
+          units: vB
+        -
+          uuid: e9de1ea3f00a48f89f8040e7d2686e5b
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 3-4 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[3]'
+          delay: '0'
+          units: vB
+        -
+          uuid: 0c60ea19e14242f2abdfacfb531a0a3f
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 4-5 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[4]'
+          delay: '0'
+          units: vB
+        -
+          uuid: 541353c525a5439e88c94633e61ff203
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 5-6 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[5]'
+          delay: '0'
+          units: vB
+        -
+          uuid: 70b53a71ca764e24933dfed451b96a58
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 6-7 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[6]'
+          delay: '0'
+          units: vB
+        -
+          uuid: b46497659f654a5c8a4c191eb89491e6
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 7-8 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[7]'
+          delay: '0'
+          units: vB
+        -
+          uuid: 043cb0c3d37945a6850ff89f24ce533f
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 8-10 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[8]'
+          delay: '0'
+          units: vB
+        -
+          uuid: e1ac55a9056246e0a1653d27b6aedf6c
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 10-12 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[10]'
+          delay: '0'
+          units: vB
+        -
+          uuid: c944876d2a1c422f83d65c08149597ec
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 12-14 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[12]'
+          delay: '0'
+          units: vB
+        -
+          uuid: 3cb5b42bd6cd4ad5bf84de1777a6032c
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 14-17 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[14]'
+          delay: '0'
+          units: vB
+        -
+          uuid: df427beacc414a48993fa39bb8c49935
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 17-20 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[17]'
+          delay: '0'
+          units: vB
+        -
+          uuid: 64c6934e3ef24be59d2605fcc692f19d
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 20-25 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[20]'
+          delay: '0'
+          units: vB
+        -
+          uuid: 5a5d5131e6ce487089125a1c8b00892e
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 25-30 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[25]'
+          delay: '0'
+          units: vB
+        -
+          uuid: fb71008e90aa4b858e50605dd423aab2
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 30-40 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[30]'
+          delay: '0'
+          units: vB
+        -
+          uuid: 6bb40d29591b4b169ad3ebf5621733ab
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 40-50 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[40]'
+          delay: '0'
+          units: vB
+        -
+          uuid: a1c499e4c7004cb78dc72beda754aad7
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 50-60 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[50]'
+          delay: '0'
+          units: vB
+        -
+          uuid: da9957aebda84aadacebf4ab9ddeac32
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 60-70 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[60]'
+          delay: '0'
+          units: vB
+        -
+          uuid: e58202673ff84e28af2fe5adb17b41b4
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 70-80 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[70]'
+          delay: '0'
+          units: vB
+        -
+          uuid: f5d39e4b0924422b889974e88f781ef2
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 80-100 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[80]'
+          delay: '0'
+          units: vB
+        -
+          uuid: 6ab64ceed24e48689c34350f29c8bba0
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 100-120 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[100]'
+          delay: '0'
+          units: vB
+        -
+          uuid: c7e6844649674c8a974b47454d7d8051
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 120-140 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[120]'
+          delay: '0'
+          units: vB
+        -
+          uuid: 8928a654ca6e46aea244dd00215efb48
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 140-170 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[140]'
+          delay: '0'
+          units: vB
+        -
+          uuid: ca7781d89c4044f9868e9d843eb8dfba
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 170-200 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[170]'
+          delay: '0'
+          units: vB
+        -
+          uuid: 43131ec917544fee9785a24811d1e3c3
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 200-250 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[200]'
+          delay: '0'
+          units: vB
+        -
+          uuid: f1b2d0a6dd3b476ea19628be465073f5
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 250-300 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[250]'
+          delay: '0'
+          units: vB
+        -
+          uuid: 80c9f87fdf2e43dda55a4a14b8624351
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 300-400 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[300]'
+          delay: '0'
+          units: vB
+        -
+          uuid: f1cc65217f98400bac1515ff0bc04975
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 400-500 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[400]'
+          delay: '0'
+          units: vB
+        -
+          uuid: 398713630f0f4cf88c81760790420cf5
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 500-600 sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[500]'
+          delay: '0'
+          units: vB
+        -
+          uuid: d5657ea7759a41a39ecd0cf2d2a519f8
+          name: 'Bitcoin: Cumulative size of mempool transactions in fee group 600+ sat/vB'
+          type: TRAP
+          key: 'bitcoin.mempool.fee_group_vbytes[600]'
+          delay: '0'
+          units: vB
         -
           uuid: 66f5b2fcd49849e3a1cc0785d5429c03
           name: 'Bitcoin: Maximum memory usage for the mempool'
