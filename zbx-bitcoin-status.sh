@@ -21,6 +21,40 @@ estimatesmartfee_targets=(
     1008    # 1 week
 )
 
+# 30 fee rate groups is the limit
+mempool_fee_histogram_rate_groups=(
+    0
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    10
+    12
+    14
+    17
+    20
+    25
+    30
+    40
+    50
+    60
+    70
+    80
+    100
+    120
+    140
+    170
+    200
+    250
+    300
+    400
+    500
+    600
+)
+
 lockdir="/tmp/$(basename "$0").lock"
 if mkdir "$lockdir" 2> /dev/null; then
     trap 'rm -rf "$lockdir"' 0
@@ -38,6 +72,20 @@ done
 bitcoin_cli="$bitcoin_cli$bitcoin_cli_options"
 
 echo "[$(date -u +"%Y-%m-%dT%H:%M:%SZ")] $bitcoin_cli"
+
+# check / wait for bitcoind to start
+while ! $bitcoin_cli echo hello > /dev/null; do sleep 1s; done
+
+# Check is fee histogram supported. If it is not, there will be error if
+# [] argument is given and empty stdout output.
+check="$($bitcoin_cli getmempoolinfo [0] 2> /dev/null)"
+if [[ -n $check ]]; then
+    # create comma separated string from array
+    mempool_fee_histogram_rate_groups_str="${mempool_fee_histogram_rate_groups[*]}"
+    mempool_fee_histogram_rate_groups_arg="[${mempool_fee_histogram_rate_groups_str// /,}]"
+else
+    mempool_fee_histogram_rate_groups_arg=""
+fi
 
 while :; do
 
@@ -64,7 +112,13 @@ while :; do
     bitcoind_connections_in="$(jq ".connections_in" <<< "$network_info")"
     bitcoind_connections_out="$(jq ".connections_out" <<< "$network_info")"
 
-    mempool_info="$($bitcoin_cli getmempoolinfo)"
+    if [[ -n $mempool_fee_histogram_rate_groups_arg ]]; then
+        mempool_info="$($bitcoin_cli getmempoolinfo "$mempool_fee_histogram_rate_groups_arg")"
+        mempool_fee_histogram="$(jq ".fee_histogram" <<< "$mempool_info")"
+    else
+        mempool_info="$($bitcoin_cli getmempoolinfo)"
+        mempool_fee_histogram=""
+    fi
     mempool_tx_count="$(jq ".size" <<< "$mempool_info")"
     mempool_size_vbytes="$(jq ".bytes" <<< "$mempool_info")"
     mempool_usage_bytes="$(jq ".usage" <<< "$mempool_info")"
@@ -93,6 +147,15 @@ while :; do
     $zabbix_sender -k bitcoin.mempool.maxmempool_bytes -o "$mempool_maxmempool_bytes"
     $zabbix_sender -k bitcoin.mempool.mempoolminfee -o "$mempool_mempoolminfee"
     $zabbix_sender -k bitcoin.rpc.active_commands.num -o "$rpc_active_commands"
+
+    if [[ -n $mempool_fee_histogram ]]; then
+        readarray -t sizes < <(echo "$mempool_fee_histogram" | grep sizes | grep -Eo "[0-9]+")
+        for i in $(seq 0 $(( ${#mempool_fee_histogram_rate_groups[@]} - 1 )) ); do
+            $zabbix_sender \
+                -k bitcoin.mempool.fee_group_vbytes["${mempool_fee_histogram_rate_groups[$i]}"] \
+                -o "${sizes[$i]}"
+        done
+    fi
 
     for i in $(seq 0 $(( ${#estimatesmartfee_targets[@]} - 1 )) ); do
         # Can't use jq here as it converts some numbers to scientific notation
