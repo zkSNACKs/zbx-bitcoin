@@ -64,6 +64,13 @@ else
 fi
 echo "$$" > "$lockdir"/pid 2> /dev/null || exit 2
 
+log_with_date()
+{
+    echo "[$(date -u +"%Y-%m-%dT%H:%M:%SZ")] $*"
+}
+
+log_with_date "Starting"
+
 # assume all first parameters beginning with dash are bitcoin-cli options
 while (( ${#} > 0 )) && [[ ${1:0:1} == "-" ]]; do
     bitcoin_cli_options="$bitcoin_cli_options $1"
@@ -71,7 +78,7 @@ while (( ${#} > 0 )) && [[ ${1:0:1} == "-" ]]; do
 done
 bitcoin_cli="$bitcoin_cli$bitcoin_cli_options"
 
-echo "[$(date -u +"%Y-%m-%dT%H:%M:%SZ")] $bitcoin_cli"
+log_with_date "$bitcoin_cli"
 
 # check / wait for bitcoind to start
 while ! $bitcoin_cli echo hello > /dev/null; do sleep 1s; done
@@ -89,12 +96,12 @@ fi
 
 while :; do
 
-    echo "[$(date -u +"%Y-%m-%dT%H:%M:%SZ")] Requesting bitcoind status"
+    log_with_date "Requesting bitcoind status"
 
     blockchain_info="$($bitcoin_cli getblockchaininfo)"
     if [[ -z "$blockchain_info" ]]; then
         # empty response here means bitcoind is not responding, retry after 1 sec.
-        echo "[$(date -u +"%Y-%m-%dT%H:%M:%SZ")] ... empty response"
+        log_with_date "... empty response"
         sleep 1s
         continue
     fi
@@ -148,25 +155,30 @@ while :; do
     $zabbix_sender -k bitcoin.mempool.mempoolminfee -o "$mempool_mempoolminfee"
     $zabbix_sender -k bitcoin.rpc.active_commands.num -o "$rpc_active_commands"
 
+    set +x
+
     if [[ -n $mempool_fee_histogram ]]; then
         readarray -t sizes < <(echo "$mempool_fee_histogram" | grep sizes | grep -Eo "[0-9]+")
         for i in $(seq 0 $(( ${#mempool_fee_histogram_rate_groups[@]} - 1 )) ); do
+            set -x
             $zabbix_sender \
                 -k bitcoin.mempool.fee_group_vbytes["${mempool_fee_histogram_rate_groups[$i]}"] \
                 -o "${sizes[$i]}"
+            set +x
         done
     fi
 
     for i in $(seq 0 $(( ${#estimatesmartfee_targets[@]} - 1 )) ); do
         # Can't use jq here as it converts some numbers to scientific notation
         # which bc does not like. So use grep instead.
+        feerate="$(bc <<< "$($bitcoin_cli estimatesmartfee "${estimatesmartfee_targets[$i]}" | grep ".feerate" | grep -Eo "[0-9]+\.[0-9]+") * 100000")"
+        set -x
         $zabbix_sender \
             -k bitcoin.estimatesmartfee["${estimatesmartfee_targets[$i]}"] \
-            -o "$(bc <<< "$($bitcoin_cli estimatesmartfee "${estimatesmartfee_targets[$i]}" | grep ".feerate" | grep -Eo "[0-9]+\.[0-9]+") * 100000")"
+            -o "$feerate"
+        set +x
     done
 
-    set +x
-
-    echo "[$(date -u +"%Y-%m-%dT%H:%M:%SZ")] Sleeping for $measurement_rate"
+    log_with_date "Sleeping for $measurement_rate"
     sleep "$measurement_rate"
 done
