@@ -1,5 +1,7 @@
 # zbx-bitcoin
 
+**This is not under active development anymore. Look at [zbx-bitcoin-active](https://github.com/kristapsk/zbx-bitcoin-active) for a new version.**
+
 Template and script for Zabbix to monitor Bitcoin Core or Knots node.
 
 ## Dependencies
